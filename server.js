@@ -5,7 +5,7 @@ const ResourceStore = require('./lib/ResourceStore')
 
 async function main () {
   const store = new FlatMultiFileStore({
-    baseIRI: 'http://localhost:9000/',
+    baseIRI: 'http://ld.landrs.org/',
     path: 'store'
   })
 
