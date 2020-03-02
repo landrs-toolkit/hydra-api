@@ -1,0 +1,12 @@
+{
+  "name": "landrs-hydra-box",
+  "version": "0.0.1",
+  "description": "Hydra Box deployment for LANDRS api",
+  "main": "server.js",
+  "dependencies": {
+    "alcaeus": "^0.10.6",
+    "hydra-box": "git+https://github.com/zazuko/hydra-box.git#refactoring",
+    "rdf-store-fs": "^1.0.0"
+  },
+  "devDependencies": {}
+}
