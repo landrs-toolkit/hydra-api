@@ -6,6 +6,7 @@ const setGraph = require('./lib/setGraph')
 const validate = require('./lib/validate')
 
 async function get (req, res) {
+  console.log('Inside blog get');
   if (req.dataset) {
     const filters = await req.dataset()
 
