@@ -1,0 +1,76 @@
+# hydra-box
+
+[Hydra](http://www.hydra-cg.com/spec/latest/core/) is a machine readable description for APIs.
+Hydra Box extends the API description with links to the actual code, which provides the API.
+Hydra Box will use such an API description to create an express middleware which provides the API and dynamically loads the required code for it.
+
+## Usage
+
+### Application
+
+Hydra-Box uses an object that implements the [RDF/JS Store interface](http://rdf.js.org/stream-spec/#store-interface) to read resources and find types of resources to identify matching operations.
+The resource is read using the IRI as named graph filter.
+
+Here an example for a store on the local file system using `rdf-store-fs`:
+
+```javascript
+const FlatMultiFileStore = require('rdf-store-fs/FlatMultiFileStore')
+
+const store = new FlatMultiFileStore({
+  baseIRI: 'http://localhost:9000/',
+  path: 'store'
+})
+```
+
+An `Api` object contains the dataset of the API documentation, where to find it and where to find the code.
+The static method `.fromFile` reads the dataset from the given file and creates an `Api` object with the given options. 
+
+```javascript
+const api = await Api.fromFile('api.ttl', {
+  path: '/api',
+  codePath: __dirname
+})
+```
+
+Once both objects are created, the middleware can be used:
+
+```javascript
+const app = express()
+app.use(hydraBox(api, store))
+app.listen(9000)
+```
+
+### Operation
+
+The operations must implement a [Express routing handler](http://expressjs.com/en/starter/basic-routing.html) interface (`(req, res, next) => {}`).
+Hydra-Box adds the [@rdfjs/express-handler](https://github.com/rdfjs-base/express-handler) to handle incoming and outgoing RDF data.
+For `GET` requests with a matching IRI Template, the `.dataset()` and `.quadStream()` as defined by `express-handler` are also available to read the given variables.
+Additionally there is a `hydra` property assigned to `req` that contains more data about the request: 
+
+```javascript
+  req.hydra = {
+    // Api object given as argument to the middleware
+    api,
+ 
+    // RDF/JS Store object given as argument to the middleware
+    store,
+ 
+    // requested URL as RDF/JS NamedNode
+    term,
+
+    // resource this request is about
+    // This can be the requested URL for the case that a class operation is called.
+    // For the case that a property operation is called, this is the subject of the triple used to link to the property.
+    resource: {
+
+      // IRI of the resource as RDF/JS NamedNode
+      term,
+
+      // content of the resource read from the store as RDF/JS Dataset 
+      dataset,
+
+      // rdf:types of the resource as @rdfjs/term-set
+      types
+    }
+  }
+```

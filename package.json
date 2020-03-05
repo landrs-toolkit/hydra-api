@@ -5,9 +5,23 @@
   "main": "server.js",
   "dependencies": {
     "alcaeus": "^0.10.6",
-    "hydra-box": "git+https://github.com/zazuko/hydra-box.git#refactoring",
+    "@rdfjs/express-handler": "^1.0.2",
+    "@rdfjs/namespace": "^1.1.0",
+    "@rdfjs/term-set": "^1.0.0",
+    "absolute-url": "^1.2.2",
+    "clownface": "^0.12.1",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "rdf-loader-code": "^0.3.0",
+    "rdf-loaders-registry": "^0.2.0",
+    "rdf-utils-fs": "^2.1.0",
+    "set-link": "^1.0.0",
+    "uri-template-route": "^1.0.0",
     "rdf-store-fs": "^1.0.0",
-    "rdf-store-sparql": "^2.0.0"
+    "rdf-dataset-ext": "^1.0.0",
+    "@rdfjs/data-model": "^1.1.2",
+    "@rdfjs/dataset": "^1.0.1",
+    "rdf-store-sparql": "git+https://github.com/omegaice/rdf-store-sparql.git#master"
   },
   "devDependencies": {}
 }

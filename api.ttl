@@ -1,4 +1,4 @@
-@base <http://localhost:9000/api/schema/>.
+@base <http://ld.landrs.org/api/schema/>.
 
 @prefix hydra: <http://www.w3.org/ns/hydra/core#>.
 @prefix code: <https://code.described.at/>.
