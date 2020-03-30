@@ -13,7 +13,7 @@ async function main () {
   )*/
 
   const store = new FlatMultiFileStore({
-    baseIRI: 'http://ld.landrs.org/',
+    baseIRI: 'http://ld.landrs.org:9000/',
     path: 'store'
   })
 
